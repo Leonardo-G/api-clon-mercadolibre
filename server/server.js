@@ -1,9 +1,13 @@
 import express from "express";
+import mongoose from "mongoose";
 import routerProducts from "../routes/products.js";
+import routerAuth from "../routes/auth.js";
+import dotenv from "dotenv";
 
 class Server {
     constructor() {
         this.app = express();
+        this.dotenv = dotenv.config()
 
         this.PORT = process.env.PORT || 8000;
         this.routes = {
@@ -11,12 +15,22 @@ class Server {
             productsAuth: "/api/products"
         }
 
-        this.middlewares()
+        this.mongooseConnection();
+        this.middlewares();
+    }
+
+    async mongooseConnection(){
+        try {
+            await mongoose.connect(process.env.DB_URL_MONGODB_CONNECTION)
+            console.log("Base de datos conectada...")
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     middlewares(){
-        // this.app.use( this.routes.authPath )
-        this.app.use( this.routes.productsAuth, routerProducts )
+        this.app.use( this.routes.authPath, routerAuth )
+        this.app.use( this.routes.productsAuth, routerProducts );
     }
 
     listen(){
