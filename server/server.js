@@ -1,8 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
 import routerProducts from "../routes/products.js";
 import routerAuth from "../routes/auth.js";
-import dotenv from "dotenv";
 
 class Server {
     constructor() {
@@ -17,6 +18,7 @@ class Server {
 
         this.mongooseConnection();
         this.middlewares();
+        this.routerPath();
     }
 
     async mongooseConnection(){
@@ -29,6 +31,10 @@ class Server {
     }
 
     middlewares(){
+        this.app.use( express.json() );
+    }
+
+    routerPath(){
         this.app.use( this.routes.authPath, routerAuth )
         this.app.use( this.routes.productsAuth, routerProducts );
     }

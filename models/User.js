@@ -1,6 +1,6 @@
-import { model, Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
@@ -9,24 +9,32 @@ const UserSchema = new Schema({
         type: String,
         dafault: null
     },
-    type: {
+    email: {
         type: String,
-        enum: ["user", "company-brand"]
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    typeUser: {
+        type: String,
+        enum: ["user", "company-brand"],
+        default: "user"
     },
     imgUrl: {
         type: String,
-        required: true
+        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     },
     created: {
         type: Number,
         default: Date.now()
     },
-    userCategories: {       // Cuando el usuario sea una tienda, colocar tags de categoria que le representan
+    tagsCategories: {       // Cuando el usuario sea una tienda, colocar tags de categoria que le representan
         type: Array,
         default: []
     }
-
-
 })
 
-export default model( "User", UserSchema );
+export default mongoose.model( "User", UserSchema );
