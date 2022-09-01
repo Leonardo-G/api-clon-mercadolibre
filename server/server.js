@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import routerProducts from "../routes/products.js";
 import routerAuth from "../routes/auth.js";
@@ -31,6 +32,7 @@ class Server {
     }
 
     middlewares(){
+        this.app.use( cors() )
         this.app.use( express.json() );
     }
 
