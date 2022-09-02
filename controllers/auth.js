@@ -20,7 +20,7 @@ const login = async ( req = request, res = response ) => {
     const isPasswordEquals = comparePassword( isExistUser.password, req.body.password ) 
 
     if ( !isPasswordEquals ){
-        return res.status(400).json({
+        return res.status(404).json({
             msg: "Email/contraseña incorrecta"
         })
     }

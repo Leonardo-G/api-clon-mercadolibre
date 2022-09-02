@@ -5,7 +5,11 @@ export const validateBody = ( req = request, res = response, next ) => {
     const result = validationResult( req );
 
     if( !result.isEmpty() ) {
-        res.status(400).json( result.array() )
+        const errors = result.array().map( e => e.msg ).join("\n") 
+        res.status(404).json({
+            msg: errors
+        })
+
         return
     }
 

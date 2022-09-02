@@ -13,7 +13,7 @@ class Server {
 
         this.PORT = process.env.PORT || 8000;
         this.routes = {
-            authPath: "/api/auth",
+            authPath: "/api/auth",      
             productsAuth: "/api/products"
         }
 
