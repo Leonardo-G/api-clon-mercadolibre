@@ -5,6 +5,7 @@ import cors from "cors";
 
 import routerProducts from "../routes/products.js";
 import routerAuth from "../routes/auth.js";
+import routerSubCategory from "../routes/subCategory.js";
 
 class Server {
     constructor() {
@@ -14,7 +15,8 @@ class Server {
         this.PORT = process.env.PORT || 8000;
         this.routes = {
             authPath: "/api/auth",      
-            productsAuth: "/api/products"
+            productsPath: "/api/products",
+            subCategoryPath: "/api/subcategory",
         }
 
         this.mongooseConnection();
@@ -37,8 +39,9 @@ class Server {
     }
 
     routerPath(){
-        this.app.use( this.routes.authPath, routerAuth )
-        this.app.use( this.routes.productsAuth, routerProducts );
+        this.app.use( this.routes.authPath, routerAuth );
+        this.app.use( this.routes.productsPath, routerProducts );
+        this.app.use( this.routes.subCategoryPath, routerSubCategory );
     }
 
     listen(){

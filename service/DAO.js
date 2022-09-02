@@ -16,6 +16,30 @@ class MethodsApi {
         }
     }
 
+    async findDocumentsWithFields ( fields ) {
+        //El campo field tiene que ser un campo de busqueda valida por mongoose.
+        //Ejemplo, queremos buscar el siguiente documento: ----->     {
+        //                                                               category: {
+        // Tenemos que pasar el siguiente objeto de busqueda      ||       code: "herramientas",
+        //  ---{ "category.code": "herramientas" }----            ||       title: "herramientas"
+        //  Esto es un campo de busqueda válido por mongoose      ||    } 
+        //  para encontrar el valor de un propiedad dentro de     ||  }                          
+        //  un objeto, en caso que asi se desea.                  || 
+        
+        if ( typeof fields !== "object" ){
+            return null
+        }
+
+        try {
+            const obj = await this.schema.find( fields ).exec()
+            return obj
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+
+    }
+
     async findObjByField( field ){
 
         if ( typeof field !== "object" ){
