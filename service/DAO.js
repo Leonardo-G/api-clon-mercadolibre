@@ -35,7 +35,7 @@ class MethodsApi {
             return obj
         } catch (error) {
             console.log(error)
-            return null
+            return "ERROR"
         }
 
     }
@@ -64,10 +64,25 @@ class MethodsApi {
             return obj
 
         } catch (error) {
-            console.log(error)
+            
             return null
         }
 
+    }
+
+    async documentUpdate( id, field ){
+        if ( typeof field !== "object" ){
+            return null
+        }
+
+        try {
+            const document = this.schema.findByIdAndUpdate( id, { $set: field }, { new: true } ).exec();
+            return document;
+        } catch (error) {
+            console.log(error)
+            return "ERROR"
+            
+        }
     }
 }
 

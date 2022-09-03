@@ -70,7 +70,46 @@ const signIn = async ( req = request, res = response ) => {
     });
 }
 
+const changeToStore = async ( req = request, res = response ) => {
+    const { categories, tags } = req.body;
+
+    const user = await User.documentUpdate( req._id, { categories, tags, typeUser: "official-store" } )
+
+    if ( !user ){
+        return res.status(400).json({
+            msg: "El usuario no se encuentra en nuestra base de datos"
+        })
+    }
+
+    if ( user === "ERROR" ){
+        return res.status(500).json({
+            msg: "Error en la base de datos"
+        })
+    }
+
+    return res.status(200).json({
+        msg: "Sos Tienda oficial de mercado libre clon"
+    })
+}
+
+const getUserOfCategories = async ( req = request, res = response ) => {
+    const { category } = req.params;
+
+    const storeOfCategories = await User.findDocumentsWithFields( { categories: { $in: category } } )
+    
+    if ( storeOfCategories === "ERROR" ) {
+        return res.status(500).json({
+            msg: "Error en el servidor"
+        })
+    }
+
+    res.status(200).json( storeOfCategories );
+}
+
 export {
     login,
-    signIn
+    signIn,
+    changeToStore,
+    getUserOfCategories
 }
+

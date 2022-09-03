@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
     },
     typeUser: {
         type: String,
-        enum: ["user", "company-brand"],
+        enum: ["user", "official-store"],
         default: "user"
     },
     imgUrl: {
@@ -31,7 +31,12 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: Date.now()
     },
-    tagsCategories: {       // Cuando el usuario sea una tienda, colocar tags de categoria que le representan
+    categories: {       
+        type: Array,
+        default: []
+    },
+    // Cuando el usuario sea una tienda, colocar tags que representan la tienda.
+    tags: {
         type: Array,
         default: []
     }

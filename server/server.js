@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import routerProducts from "../routes/products.js";
-import routerAuth from "../routes/auth.js";
+import routerAuth from "../routes/user.js";
 import routerSubCategory from "../routes/subCategory.js";
 
 class Server {
@@ -14,7 +14,7 @@ class Server {
 
         this.PORT = process.env.PORT || 8000;
         this.routes = {
-            authPath: "/api/auth",      
+            authPath: "/api/user",
             productsPath: "/api/products",
             subCategoryPath: "/api/subcategory",
         }
