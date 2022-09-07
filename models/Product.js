@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const ProductSchema = new mongoose.Schema({
+    idUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
     title: {
         type: String,
         required: true
@@ -10,24 +14,12 @@ const ProductSchema = new mongoose.Schema({
         default: ["https://www.sinrumbofijo.com/wp-content/uploads/2016/05/default-placeholder.png"]
     },
     category: [{
-        code: {
-            type: String,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        }
+        type: String,
+        required: true
     }],
     subCategory: [{
-        code: {
-            type: String,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        }
+        type: String,
+        required: true
     }],
     characteristics: {
         type: Array,
@@ -116,7 +108,7 @@ const ProductSchema = new mongoose.Schema({
     },
     tags: {
         type: Array,
-        required: true
+            required: true
     }
 })
 

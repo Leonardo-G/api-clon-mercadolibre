@@ -16,7 +16,7 @@ class MethodsApi {
         }
     }
 
-    async findDocumentsWithFields ( fields ) {
+    async findDocumentsWithFields ( fields, query, sort = {} ) {
         //El campo field tiene que ser un campo de busqueda valida por mongoose.
         //Ejemplo, queremos buscar el siguiente documento: ----->     {
         //                                                               category: {
@@ -31,13 +31,29 @@ class MethodsApi {
         }
 
         try {
-            const obj = await this.schema.find( fields ).exec()
+            const obj = await this.schema.find( fields )
+                                            .skip( query.skip )
+                                            .limit( query.limit )
+                                            .sort( sort ).exec()
             return obj
+
         } catch (error) {
             console.log(error)
             return "ERROR"
         }
 
+    }
+
+    async findOneDocument( id ) {
+        try {
+            const document = await  this.schema.findById( id );
+            
+            return document
+
+        } catch (error) {
+            console.log(error)
+            return "ERROR"
+        }
     }
 
     async findObjByField( field ){
