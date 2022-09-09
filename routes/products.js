@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { getOnlyProduct, getProducts, getProductsByOffer, newProduct } from "../controllers/products.js";
+import { getOnlyProduct, getProducts, getProductsByOffer, getProductsByTags, newProduct } from "../controllers/products.js";
 import { validateBody } from "../middlewares/validateBody.js";
 
 const router = Router();
@@ -24,5 +24,7 @@ router.get( "/", getProducts );
 router.get( "/:id", getOnlyProduct )
 
 router.get( "/short/by-offer", getProductsByOffer )
+
+router.get( "/short/by-:subcategory", getProductsByTags )
 
 export default router

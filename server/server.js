@@ -6,6 +6,7 @@ import cors from "cors";
 import routerProducts from "../routes/products.js";
 import routerAuth from "../routes/user.js";
 import routerSubCategory from "../routes/subCategory.js";
+import routerQuestions from "../routes/questions.js";
 
 class Server {
     constructor() {
@@ -17,6 +18,7 @@ class Server {
             authPath: "/api/user",
             productsPath: "/api/products",
             subCategoryPath: "/api/subcategory",
+            questionsPath: "/api/questions"
         }
 
         this.mongooseConnection();
@@ -42,6 +44,7 @@ class Server {
         this.app.use( this.routes.authPath, routerAuth );
         this.app.use( this.routes.productsPath, routerProducts );
         this.app.use( this.routes.subCategoryPath, routerSubCategory );
+        this.app.use( this.routes.questionsPath, routerQuestions );
     }
 
     listen(){

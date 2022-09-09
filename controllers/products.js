@@ -30,7 +30,7 @@ const getOnlyProduct = async ( req = request, res = response ) => {
             msg: "Error al obtener el producto. Intentelo de nuevo más tarde"
         })
     }
-    console.log(product)
+    
     res.status( 200 ).json( product )
 }
 
@@ -45,9 +45,31 @@ const getProductsByOffer = async ( req = request, res = response ) => {
             msg: "Error al obtener los productos. Intentelo de nuevo más tarde"
         })
     }
-    console.log(products)
+
     const newProducts = products.map( p => {
         const { category, subCategory, characteristics, characteristicsDetail,
+            visited, description, stock, sold, __v, ...productsLigth } = p._doc;
+        
+        return productsLigth
+    }) 
+    
+    res.status(200).json( newProducts )
+}
+
+const getProductsByTags = async ( req = request, res = response ) => {
+
+    const { limit = 5, skip = 0 } = req.query;
+    const { subcategory } = req.params;
+    const products = await Product.findDocumentsWithFields({ subCategory: { $in: subcategory } }, { limit, skip })
+    console.log( "PADasd" )
+    if ( products === "ERROR") {
+        return res.status(500).json({
+            msg: "Error al obtener los productos. Intentelo de nuevo más tarde"
+        })
+    }
+
+    const newProducts = products.map( p => {
+        const { category, characteristics, characteristicsDetail,
             visited, description, stock, sold, __v, ...productsLigth } = p._doc;
         
         return productsLigth
@@ -60,5 +82,6 @@ export {
     getProducts,
     newProduct,
     getOnlyProduct,
-    getProductsByOffer
+    getProductsByOffer,
+    getProductsByTags
 }

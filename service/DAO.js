@@ -81,7 +81,7 @@ class MethodsApi {
 
         } catch (error) {
             
-            return null
+            return "ERROR"
         }
 
     }
