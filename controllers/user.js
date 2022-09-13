@@ -94,8 +94,9 @@ const changeToStore = async ( req = request, res = response ) => {
 
 const getUserOfCategories = async ( req = request, res = response ) => {
     const { category } = req.params;
+    const { limit = 5, skip = 0 } = req.query;
 
-    const storeOfCategories = await User.findDocumentsWithFields( { categories: { $in: category }, typeUser: "official-store" } )
+    const storeOfCategories = await User.findDocumentsWithFields( { categories: { $in: category }, typeUser: "official-store" }, { limit, skip } )
     
     if ( storeOfCategories === "ERROR" ) {
         return res.status(500).json({

@@ -7,6 +7,7 @@ import routerProducts from "../routes/products.js";
 import routerAuth from "../routes/user.js";
 import routerSubCategory from "../routes/subCategory.js";
 import routerQuestions from "../routes/questions.js";
+import routerOpinions from "../routes/opinions.js"
 
 class Server {
     constructor() {
@@ -18,7 +19,8 @@ class Server {
             authPath: "/api/user",
             productsPath: "/api/products",
             subCategoryPath: "/api/subcategory",
-            questionsPath: "/api/questions"
+            questionsPath: "/api/questions",
+            opinionsPath: "/api/opinions"
         }
 
         this.mongooseConnection();
@@ -45,6 +47,7 @@ class Server {
         this.app.use( this.routes.productsPath, routerProducts );
         this.app.use( this.routes.subCategoryPath, routerSubCategory );
         this.app.use( this.routes.questionsPath, routerQuestions );
+        this.app.use( this.routes.opinionsPath, routerOpinions );
     }
 
     listen(){

@@ -21,6 +21,7 @@ const newSubCategory = async ( req = request, res = response ) => {
 const getSubCategoriesOfCategory = async ( req = request, res = response ) => {
     
     const { category } = req.params;
+    const { limit = 5, skip = 0 } = req.query;
 
     if ( !category ) {
         return res.status(400).json({
@@ -28,7 +29,7 @@ const getSubCategoriesOfCategory = async ( req = request, res = response ) => {
         })
     }
 
-    const subCategories = await SubCategory.findDocumentsWithFields({ "category.code": category })
+    const subCategories = await SubCategory.findDocumentsWithFields({ "category.code": category }, { limit, skip })
     
     if( !subCategories ) {
         return res.status( 500 ).json({

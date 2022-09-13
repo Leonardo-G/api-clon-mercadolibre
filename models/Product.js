@@ -108,8 +108,19 @@ const ProductSchema = new mongoose.Schema({
     },
     tags: {
         type: Array,
-            required: true
+        required: true
     }
+})
+
+ProductSchema.index({ 
+    title: "text", 
+    tags: "text", 
+    category: "text", 
+    "characteristicsDetail.info.description": "text", 
+    "characteristicsDetail.info.title": "text", 
+    "characteristics": "text", 
+    "description": "text", 
+    "subCategory": "text" 
 })
 
 export default mongoose.model( "Product", ProductSchema );

@@ -34,7 +34,9 @@ class MethodsApi {
             const obj = await this.schema.find( fields )
                                             .skip( query.skip )
                                             .limit( query.limit )
-                                            .sort( sort ).exec()
+                                            .sort( sort )
+                                            .exec()
+                                            
             return obj
 
         } catch (error) {
@@ -99,6 +101,11 @@ class MethodsApi {
             return "ERROR"
             
         }
+    }
+
+    async countDocuments( field, query ){
+        const documents = await this.schema.find( field ).countDocuments( query );
+        return documents
     }
 }
 
