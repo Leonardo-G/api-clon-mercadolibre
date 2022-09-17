@@ -7,11 +7,12 @@ const Question = new MethodsApi( QuestionSchema )
 
 const newQuestion = async ( req = request, res = response ) => {
     const { idproduct } = req.params;
-    const { question, response } = req.body
+    const { question } = req.body
 
     const body = {
         idProduct: idproduct,
-        question,
+        // question,
+        ...req.body
     }
 
     const newQuestion = await Question.newObj( body )

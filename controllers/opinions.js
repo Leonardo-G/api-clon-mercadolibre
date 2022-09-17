@@ -7,7 +7,7 @@ const Opinion = new MethodsApi( OpinionSchema )
 const newComment = async ( req = request, res = response ) => {
     const { idproduct } = req.params;
 
-    const opinion = await Opinion.newObj({ idProduct: idproduct, idUser: "1", ...req.body })
+    const opinion = await Opinion.newObj({ idProduct: idproduct, idUserOpinion: "6315c01c4315d64c7b1ff608", ...req.body })
 
     if ( opinion === "ERROR" ) {
         return res.status( 500 ).json({

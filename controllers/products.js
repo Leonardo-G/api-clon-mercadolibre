@@ -19,15 +19,23 @@ const getProducts = async ( req = request, res = response ) => {
         price_lte = "",     // Precio que sean menores o igual que...
         price_gte = "",     // Precio que sean mayores o igual que...
         tags = "",
-        search = ""   
+        search = "",
+        sort  
     } = req.query;
 
     let field = {};
-    
+    let orders = {};
+
+    if ( search !== "" ) {
+        field = {
+            // ...field,
+            $text: { $search: search, $caseSensitive: false }
+        }
+    }
     if ( category !== "" ) field.category = { $in: category }
     if ( subcategory !== "" ) field.subCategory = { $in: subcategory };
     if ( offer !== undefined ) field.offer = offer;
-    if ( shipping !== "" && (shipping === "1" || shipping === "2" || shipping === "3") ) field["shipping.code"] = Number(shipping);
+    if ( shipping !== "" && (shipping === "1" || shipping === "2") ) field["shipping.code"] = Number(shipping);
     if ( interest === "true" && until ) {
         field["interests.accept"] = true;
         field["interests.until"] = until;
@@ -39,14 +47,11 @@ const getProducts = async ( req = request, res = response ) => {
     if ( price_lte === "" && price_gte !== "" ) field["priceDetail.price"] = { $gte: Number(price_gte) };
     if ( price_lte !== "" && price_gte !== "" ) field["priceDetail.price"] = { $gte: Number(price_gte), $lte: Number(price_lte) };
     if ( tags !== "" ) field.tags = { $in: tags }
-    if ( search !== "" ) {
-        field = {
-            // ...field,
-            $text: { $search: search, $caseSensitive: false }
-        }
-    }
+    if ( sort === "price_asc" ) orders = { "priceDetail.price": 1 } 
+    if ( sort === "relevant" ) orders = { "visited": -1 } 
+    
 
-    const products = await Product.findDocumentsWithFields( field, { limit, skip })
+    const products = await Product.findDocumentsWithFields( field, { limit, skip }, orders)
     
     if ( products === "ERROR") {
         return res.status(500).json({
@@ -56,12 +61,12 @@ const getProducts = async ( req = request, res = response ) => {
 
     const newProducts = products.map( p => {
         const { category, subCategory, characteristics, characteristicsDetail,
-            visited, description, stock, sold, __v, ...productsLigth } = p._doc;
+             description, stock, sold, __v, ...productsLigth } = p._doc;
         
         return productsLigth
     }) 
     
-    res.status(200).json( products );
+    res.status(200).json( newProducts );
 }
 
 const newProduct = async ( req = request, res = response ) => {

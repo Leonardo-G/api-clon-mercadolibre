@@ -82,7 +82,7 @@ class MethodsApi {
             return obj
 
         } catch (error) {
-            
+            console.log(error)
             return "ERROR"
         }
 
