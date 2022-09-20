@@ -39,12 +39,12 @@ const getOpinions = async ( req = request, res = response ) => {
         rate_4,
         rate_5,
     ] = await Promise.all([
-        Opinion.countDocuments({ idProduct: idproduct }, {}),
-        Opinion.countDocuments({ idProduct: idproduct }, { rate: 1 }),
-        Opinion.countDocuments({ idProduct: idproduct }, { rate: 2 }),
-        Opinion.countDocuments({ idProduct: idproduct }, { rate: 3 }),
-        Opinion.countDocuments({ idProduct: idproduct }, { rate: 4 }),
-        Opinion.countDocuments({ idProduct: idproduct }, { rate: 5 })
+        Opinion.countDocuments({ idProduct: idproduct }),
+        Opinion.countDocuments({ idProduct: idproduct, rate: 1 }),
+        Opinion.countDocuments({ idProduct: idproduct, rate: 2 }),
+        Opinion.countDocuments({ idProduct: idproduct, rate: 3 }),
+        Opinion.countDocuments({ idProduct: idproduct, rate: 4 }),
+        Opinion.countDocuments({ idProduct: idproduct, rate: 5 })
     ])
 
     res.status(200).json({

@@ -36,6 +36,7 @@ const getProducts = async ( req = request, res = response ) => {
     if ( subcategory !== "" ) field.subCategory = { $in: subcategory };
     if ( offer !== undefined ) field.offer = offer;
     if ( shipping !== "" && (shipping === "1" || shipping === "2") ) field["shipping.code"] = Number(shipping);
+
     if ( interest === "true" && until ) {
         field["interests.accept"] = true;
         field["interests.until"] = until;
@@ -52,6 +53,7 @@ const getProducts = async ( req = request, res = response ) => {
     
 
     const products = await Product.findDocumentsWithFields( field, { limit, skip }, orders)
+    const totalProducts = await Product.countDocuments( field, orders );
     
     if ( products === "ERROR") {
         return res.status(500).json({
@@ -66,13 +68,16 @@ const getProducts = async ( req = request, res = response ) => {
         return productsLigth
     }) 
     
-    res.status(200).json( newProducts );
+    res.status(200).json( {
+        products: newProducts,
+        totalProducts
+    });
 }
 
 const newProduct = async ( req = request, res = response ) => {
     const product = req.body;
 
-    const newProduct = await Product.newObj({ idProduct: "6312e5a047935034ad9bcba9",...product } );
+    const newProduct = await Product.newObj({ idProduct: req.params.id,...product } );
     
     if ( !newProduct ) {
         return res.status(500).json({
@@ -84,7 +89,7 @@ const newProduct = async ( req = request, res = response ) => {
 }
 
 const getOnlyProduct = async ( req = request, res = response ) => {
-    const product = await Product.findOneDocument( req.params.id );
+    const product = await Product.findOneDocument( req.params.id, { path: "idUser", select: "username _id typeUser" } );
 
     if ( product === "ERROR" ){
         return res.status(500).json({
@@ -122,7 +127,7 @@ const getProductsByTags = async ( req = request, res = response ) => {
     const { limit = 5, skip = 0 } = req.query;
     const { subcategory } = req.params;
     const products = await Product.findDocumentsWithFields({ subCategory: { $in: subcategory } }, { limit, skip })
-    console.log( "PADasd" )
+
     if ( products === "ERROR") {
         return res.status(500).json({
             msg: "Error al obtener los productos. Intentelo de nuevo más tarde"

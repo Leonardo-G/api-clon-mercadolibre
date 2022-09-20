@@ -95,6 +95,7 @@ const changeToStore = async ( req = request, res = response ) => {
 const getUserOfCategories = async ( req = request, res = response ) => {
     const { category } = req.params;
     const { limit = 5, skip = 0 } = req.query;
+    console.log(category)
 
     const storeOfCategories = await User.findDocumentsWithFields( { categories: { $in: category }, typeUser: "official-store" }, { limit, skip } )
     

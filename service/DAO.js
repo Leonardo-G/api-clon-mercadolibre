@@ -37,7 +37,7 @@ class MethodsApi {
                                             .sort( sort )
                                             .exec()
                                             
-            return obj
+            return obj;
 
         } catch (error) {
             console.log(error)
@@ -46,11 +46,17 @@ class MethodsApi {
 
     }
 
-    async findOneDocument( id ) {
+    async findOneDocument( id, ref ) {
         try {
-            const document = await  this.schema.findById( id );
-            
-            return document
+            if ( ref ) {
+                const document = await  this.schema.findById( id ).populate(ref).exec()
+                
+                return document
+            } else{
+                const document = await  this.schema.findById( id ).exec();
+                
+                return document
+            }
 
         } catch (error) {
             console.log(error)
@@ -103,8 +109,8 @@ class MethodsApi {
         }
     }
 
-    async countDocuments( field, query ){
-        const documents = await this.schema.find( field ).countDocuments( query );
+    async countDocuments( field, query = {} ){
+        const documents = await this.schema.find( field ).countDocuments().sort(query).exec();
         return documents
     }
 }
