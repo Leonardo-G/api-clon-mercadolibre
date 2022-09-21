@@ -38,10 +38,7 @@ class Server {
     }
 
     middlewares(){
-        this.app.use( cors({
-            origin: "https://clon-mercadolibre.vercel.app",
-            optionsSuccessStatus: 200
-        }) )
+        this.app.use( cors() )
         this.app.use( express.json() );
     }
 
