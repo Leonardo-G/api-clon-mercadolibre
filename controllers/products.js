@@ -11,8 +11,8 @@ const getProducts = async ( req = request, res = response ) => {
         skip = 0,
         category = "",
         subcategory = "",
-        offer,
-        shipping = "",
+        offer,              //"Offer" del producto se espera un "true"
+        shipping = "",      // Se espera un "1" | "2"
         interest,           //Se espera un "true"
         until,              //Se espera el numero de cuotas en caso de que INTEREST sea "true"
         condition = "",     // se espera "nuevo" | "usado" | "reacondicionado"
@@ -20,7 +20,7 @@ const getProducts = async ( req = request, res = response ) => {
         price_gte = "",     // Precio que sean mayores o igual que...
         tags = "",
         search = "",
-        sort  
+        sort                // "price_asc" ==> Precio de menor a mayor | "relevant" ==> Productos mas relevantes
     } = req.query;
 
     let field = {};
