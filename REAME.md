@@ -60,6 +60,7 @@ La API de la aplicación de ejemplo se describe a continuación.
 }
 ```
 
+------------------------
 ## `"/productos"`
 
 ### Obtener lista de productos. Solicitud
@@ -126,7 +127,7 @@ La API de la aplicación de ejemplo se describe a continuación.
 
 
 
-
+----------------------------
 ## Coleccion de 	`OPINIONES`
 ### Respuesta
 
@@ -157,6 +158,7 @@ La API de la aplicación de ejemplo se describe a continuación.
 
 
 
+-----------------
 ## Coleccion de 	`PREGUNTAS`
 ### Respuesta
 
@@ -188,6 +190,9 @@ La API de la aplicación de ejemplo se describe a continuación.
 ### Obtener las preguntas del producto. Solicitud
 
 `POST "/:idquestion/get"` (*)   Siendo ":idproduct", como el ID válido de la pregunta.
+
+
+------------------------------
 
 
  (*) querys disponbiles

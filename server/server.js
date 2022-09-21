@@ -12,7 +12,7 @@ import routerOpinions from "../routes/opinions.js"
 class Server {
     constructor() {
         this.app = express();
-        this.dotenv = dotenv.config()
+        this.dotenv = dotenv.config();
 
         this.PORT = process.env.PORT || 8000;
         this.routes = {
@@ -21,10 +21,6 @@ class Server {
             subCategoryPath: "/api/subcategory",
             questionsPath: "/api/questions",
             opinionsPath: "/api/opinions"
-        }
-        this.configCors = {
-            origin: process.env.URL_FRONT,
-            optionsSuccessStatus: 200
         }
 
         this.mongooseConnection();
@@ -42,7 +38,10 @@ class Server {
     }
 
     middlewares(){
-        this.app.use( cors( this.configCors ) )
+        this.app.use( cors({
+            origin: "https://clon-mercadolibre.vercel.app",
+            optionsSuccessStatus: 200
+        }) )
         this.app.use( express.json() );
     }
 
