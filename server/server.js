@@ -22,6 +22,10 @@ class Server {
             questionsPath: "/api/questions",
             opinionsPath: "/api/opinions"
         }
+        this.configCors = {
+            origin: process.env.URL_FRONT,
+            optionsSuccessStatus: 200
+        }
 
         this.mongooseConnection();
         this.middlewares();
@@ -38,7 +42,7 @@ class Server {
     }
 
     middlewares(){
-        this.app.use( cors() )
+        this.app.use( cors( this.configCors ) )
         this.app.use( express.json() );
     }
 
