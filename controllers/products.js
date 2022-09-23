@@ -77,7 +77,7 @@ const getProducts = async ( req = request, res = response ) => {
 const newProduct = async ( req = request, res = response ) => {
     const product = req.body;
 
-    const newProduct = await Product.newObj({ idProduct: req.params.id,...product } );
+    const newProduct = await Product.newObj({ ...product } );
     
     if ( !newProduct ) {
         return res.status(500).json({
