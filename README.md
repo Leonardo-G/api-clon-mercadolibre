@@ -1,7 +1,13 @@
 # API Mercado Libre - clon 
 
-Repositorio API de Mercado Libre - clon que se desarrollo para usar en el [proyecto del Front.](https://github.com/Leonardo-G/clon-mercadolibre);
-Desplegado actualmente en [RENDER](https://render.com)
+Repositorio API de Mercado Libre - clon que se desarrollo para usar en el [proyecto del Front.](https://github.com/Leonardo-G/clon-mercadolibre).
+Desplegado actualmente en [RAILWAY](https://railway.app). 
+
+### Aclaración por si no logra consultar la API.
+
+La API para la aplicación estará disponible durante 21 días por mes, ya que es un plan gratuito del servicio que ofrece RAILWAY. En caso de no funcionar la API, es porque se encuentra fuera de los días disponibles, por lo tanto habrá que esperar hasta el siguiente mes. Este incoveniente también se muestra tambien en el lado del cliente, en caso de que falle. Si usted tiene otro servicio donde ofrece gratuitamente el funcionamiente de la API por mes, no dudes en recomendarmelo.
+
+- Debido a que se recomendo HEROKU, este ya no tiene versión gratuita.
 
 
 # Herramientas utilizadas para crear este proyecto
