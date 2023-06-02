@@ -1,5 +1,7 @@
 import dotenv, { DotenvConfigOutput } from "dotenv";
 import express, { Express } from "express";
+import DbConnection from "../utils/dbConfig";
+import cors from "cors";
 
 class Server {
     readonly app: Express;
@@ -7,10 +9,10 @@ class Server {
     readonly PORT: string | number;
     readonly routes: any;
 
-    constructor(){
+    constructor(private dbConnection: DbConnection){
         this.app = express();
         this.dotenv = dotenv.config();
-
+        
         this.PORT = <string>process.env.PORT || 3000;
         this.routes = {
             authPath: "/api/user",
@@ -19,6 +21,17 @@ class Server {
             questionsPath: "/api/questions",
             opinionsPath: "/api/opinions"
         }
+
+        this.mongooseConnection();
+    }
+
+    mongooseConnection() {
+        return this.dbConnection.connectDB();
+    }
+
+    middlewares() {
+        this.app.use( cors() );
+        this.app.use( express.json() );
     }
 
     listen(){
