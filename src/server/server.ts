@@ -1,13 +1,19 @@
-import dotenv, { DotenvConfigOutput } from "dotenv";
 import express, { Express } from "express";
-import DbConnection from "../utils/dbConfig";
+
+//Packages
+import dotenv, { DotenvConfigOutput } from "dotenv";
 import cors from "cors";
+
+//imports files
+import DbConnection from "../utils/dbConfig";
+import UserRouter from "../routes/user";
 
 class Server {
     readonly app: Express;
     readonly dotenv: DotenvConfigOutput;
     readonly PORT: string | number;
     readonly routes: any;
+    readonly controllers: any;
 
     constructor(private dbConnection: DbConnection){
         this.app = express();
@@ -22,7 +28,13 @@ class Server {
             opinionsPath: "/api/opinions"
         }
 
+        this.controllers = {
+            auth: new UserRouter(),
+        }
+
         this.mongooseConnection();
+        this.middlewares();
+        this.routersPath();
     }
 
     mongooseConnection() {
@@ -32,6 +44,10 @@ class Server {
     middlewares() {
         this.app.use( cors() );
         this.app.use( express.json() );
+    }
+
+    routersPath() {
+        this.app.use(this.routes.authPath, this.controllers.auth);
     }
 
     listen(){
