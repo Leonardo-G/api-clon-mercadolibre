@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-class UserRouter {
+class UserController {
     readonly router: Router;
     constructor() {
         this.router = Router();
@@ -20,4 +20,4 @@ class UserRouter {
     }
 }
 
-export default UserRouter;
+export default UserController;
