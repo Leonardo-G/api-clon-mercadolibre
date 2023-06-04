@@ -6,7 +6,7 @@ import cors from "cors";
 
 //imports files
 import DbConnection from "../utils/dbConfig";
-import UserController from "../controllers/user.controllers";
+import userRouter from '../routers/auth.router';
 
 class Server {
     readonly app: Express;
@@ -28,10 +28,6 @@ class Server {
             opinionsPath: "/api/opinions"
         }
 
-        this.controllers = {
-            auth: new UserController(),
-        }
-
         this.mongooseConnection();
         this.middlewares();
         this.routersPath();
@@ -47,7 +43,7 @@ class Server {
     }
 
     routersPath() {
-        this.app.use(this.routes.authPath, this.controllers.auth);
+        this.app.use(this.routes.authPath, userRouter);
     }
 
     listen(){

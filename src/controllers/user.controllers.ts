@@ -1,19 +1,15 @@
-import { Router } from "express";
+import UserMiddleware from '../middlewares/user.middleware';
 
 class UserController {
-    readonly router: Router;
+    readonly userMiddleware: UserMiddleware;
+
     constructor() {
-        this.router = Router();
-
-        this.setupRotes();
-    }
-
-    setupRotes(){
-        this.router.post('/login', this.postLogin);
-        this.router.post('/register', this.postRegister);
+        
+        this.userMiddleware = new UserMiddleware();
     }
     
-    postLogin(){
+    static postLogin(){
+        console.log("HOLA");
     }
 
     postRegister(){
