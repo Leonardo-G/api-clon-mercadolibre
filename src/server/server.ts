@@ -6,7 +6,7 @@ import cors from "cors";
 
 //imports files
 import DbConnection from "../utils/dbConfig";
-import UserController from "../controllers/user";
+import UserController from "../controllers/user.controllers";
 
 class Server {
     readonly app: Express;
