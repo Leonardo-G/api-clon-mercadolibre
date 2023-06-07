@@ -31,3 +31,17 @@ export class BadRequestException extends ErrorException {
         this.sendResponse(res);
     }
 }
+
+export class ServerErrorException extends ErrorException {
+
+    readonly status: number;
+    readonly message: string;
+
+    constructor(res: Response, message: string = "Server error") {
+        super(500, message);
+        this.status = 400;
+        this.message = message;
+
+        this.sendResponse(res);
+    }
+}
