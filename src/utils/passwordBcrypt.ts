@@ -4,8 +4,7 @@ class PasswordBcrypt {
     constructor() {}
 
     static hashPassword( password: string ): string {
-        const salt = bcrypt.genSaltSync();
-        const hashPassword = bcrypt.hashSync( password, salt );
+        const hashPassword = bcrypt.hashSync(password);
         
         return hashPassword;
     }

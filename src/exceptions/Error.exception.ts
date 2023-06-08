@@ -9,6 +9,7 @@ class ErrorException extends Error{
     }
 
     sendResponse(res: Response) {
+        console.log("SENDRESPONSE")
         res.status(this.status).json({
             error: {
               message: this.message,

@@ -1,34 +1,27 @@
 import { Request, Response } from 'express';
 
 import { BadRequestException, ServerErrorException } from '../exceptions/Error.exception';
-import UserMiddleware from '../middlewares/user.middleware';
-import UserService from '../service/user.service';
 import PasswordBcrypt from '../utils/passwordBcrypt';
 import Jwt from '../utils/jwt';
+import UserService from '../service/user.service';
 
 class UserController {
-    readonly userMiddleware: UserMiddleware;
-    readonly userServices: UserService
 
-    constructor() {
-        
-        this.userServices = new UserService();
-        this.userMiddleware = new UserMiddleware();
-    }
+    constructor() {}
     
     async postLogin(req: Request, res: Response){
         try {
             const { email, password } = req.body;
-            const user = await this.userServices.findOne( email );
+            const user = await UserService.findOne( email );
 
             if ( !user ) {
-                throw new BadRequestException(res, `The email ${ email } does not exist`);
+                return new BadRequestException(res, `The email ${ email } does not exist`);
             }
 
             const isPasswordEquals = PasswordBcrypt.comparePassword(password, user.password);
             
             if ( !isPasswordEquals ){
-                throw new BadRequestException(res, 'Email/password incorrect');
+                return new BadRequestException(res, 'Email/password incorrect');
             }
 
             const token = Jwt.createJwt(user._id, user.email);
@@ -41,12 +34,26 @@ class UserController {
                 token
             })
         } catch (error) {
-            throw new ServerErrorException(res, 'Error in postLogin');
+            return new ServerErrorException(res, 'Error in postLogin');
         }
     }
 
-    postRegister(){
+    async postRegister(req: Request, res: Response){
+        const isExistUser = await UserService.findOne( req.body.email );
+    
+        if ( isExistUser ) {
+            return new BadRequestException(res, `The email ${ req.body.email } it already exists`);
+        }
+
+        const user = await UserService.createUser(req.body);
+        const token = Jwt.createJwt(user._id, user.email);
+
+        res.status(201).json({
+            ...user,
+            token
+        })
+        
     }
 }
 
-export default UserController;
+export default new UserController();

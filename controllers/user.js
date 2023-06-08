@@ -40,8 +40,8 @@ const login = async ( req = request, res = response ) => {
 
 const signIn = async ( req = request, res = response ) => {
     //Validar si el usuario existe
-    
     const isExistUser = await User.findObjByField({ email: req.body.email })
+    
     if( isExistUser ){
         return res.status(400).json({
             msg: `El usuario con el correo ${ req.body.email } ya existe`
