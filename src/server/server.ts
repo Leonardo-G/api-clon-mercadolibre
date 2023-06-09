@@ -7,6 +7,7 @@ import cors from "cors";
 //imports files
 import DbConnection from "../utils/dbConfig";
 import userRouter from '../routers/auth.router';
+import subCategpryRouter from '../routers/subCategory.router';
 
 class Server {
     readonly app: Express;
@@ -44,6 +45,7 @@ class Server {
 
     routersPath() {
         this.app.use(this.routes.authPath, userRouter);
+        this.app.use(this.routes.subCategoryPath, subCategpryRouter);
     }
 
     listen(){

@@ -1,19 +1,10 @@
-import { NextFunction, Request, Response } from "express";
-import { check, validationResult } from "express-validator";
+import { check } from "express-validator";
 
-class UserMiddleware {
-    constructor() {}
+import Middleware from "./middleware";
 
-    static validateBody( req: Request, res: Response, next: NextFunction ){
-        const result = validationResult( req );
-        
-        if( !result.isEmpty() ) {
-            res.status(404).json(result.array());
-    
-            return
-        }
-        console.log("VALIDATE BODY")
-        next();
+class UserMiddleware extends Middleware {
+    constructor() {
+        super()
     }
     
     static middlewareLogin(): any[] {
