@@ -4,24 +4,16 @@ import { ISubCategoryDocument } from "../interfaces/subCategory";
 
 const SubCategorySchema: Schema = new Schema({
     category: {
-        code: {
-            type: String,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        }
+        type: mongoose.Types.ObjectId,
+        required: true
     },
-    subCategory: {
-        code: {
-            type: String,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        }
+    code: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
     },
     imgUrl: {
         type: String,
