@@ -13,3 +13,5 @@ interface ISubCategory {
     code: string;
     title: string;
 }
+
+export interface ISubCategoryBody extends ISubCategoryDocument {};
