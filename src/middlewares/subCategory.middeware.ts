@@ -13,9 +13,16 @@ class SubCategoryMiddleware extends Middleware{
             check("subCategory.title", "La propiedad 'code' dentro de 'subCategory' es requerido").exists(),
             check("subCategory.title", "La propiedad 'title' dentro de 'subCategory' es requerido").exists(),
             check("imgUrl", "La propiedad 'imgUrl' es requerido").exists(),
-            SubCategoryMiddleware.validateBody,
+            super.validateBody,
         ]
     };
+
+    static middlewareSubCategoriesOfCategory() {
+        return [
+            check("category", "Se necesita el parametro 'category' para obtener las sub categorías"),
+            super.validateBody
+        ]
+    }
 }
 
 export default SubCategoryMiddleware;

@@ -8,7 +8,6 @@ class Controller {
     };
 
     created(res: Response, body: any) {
-        console.log("CONTROLLER")
         return res.status(201).json(body);
     }
 

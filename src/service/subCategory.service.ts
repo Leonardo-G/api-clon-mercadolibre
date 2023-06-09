@@ -1,5 +1,5 @@
 import { ISubCategoryBody, ISubCategoryDocument } from "../interfaces/subCategory";
-import subCategoryModels from "../models/subCategory.models";
+import subCategoryModels from "../models/SubCategory.models";
 
 
 class SubCategoryService {
@@ -11,6 +11,16 @@ class SubCategoryService {
         await subCategory.save();
 
         return subCategory;
+    }
+
+    async getSubCategories(category: string, limit: number = 5, skip: number = 0): Promise<ISubCategoryBody[]> {
+        const subCategories = await this._subCategoryModel
+            .find({ "category.code": category })
+            .limit( limit )
+            .skip( skip )
+            .exec();
+        
+        return subCategories;
     }
 }
 

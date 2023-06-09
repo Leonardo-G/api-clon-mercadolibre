@@ -13,6 +13,18 @@ class SubCategoryControllers extends Controller{
 
         super.created(res, subCategory);
     }
+
+    async getSubCategoriesOfCategory( req: Request, res: Response ) {
+        const { category } = req.params;
+        const { limit, skip } = req.query;
+
+        const limitQuery = parseInt(limit as string);
+        const skipQuery = parseInt(skip as string);
+
+        const subCategories = await SubCategoryService.getSubCategories( category, limitQuery, skipQuery );
+
+        super.sendOk(res, subCategories);
+    }
 }
 
 export default new SubCategoryControllers();
