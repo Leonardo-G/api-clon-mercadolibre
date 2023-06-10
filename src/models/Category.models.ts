@@ -13,4 +13,4 @@ const CategorySchema: Schema = new Schema({
     }
 })
 
-export default mongoose.model<ICategory>( "SubCategory", CategorySchema );
+export default mongoose.model<ICategory>( "Category", CategorySchema );

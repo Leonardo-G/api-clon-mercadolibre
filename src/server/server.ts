@@ -8,6 +8,7 @@ import cors from "cors";
 import DbConnection from "../utils/dbConfig";
 import userRouter from '../routers/auth.router';
 import subCategpryRouter from '../routers/subCategory.router';
+import categoryRouter from '../routers/category.router';
 
 class Server {
     readonly app: Express;
@@ -24,6 +25,7 @@ class Server {
         this.routes = {
             authPath: "/api/user",
             productsPath: "/api/products",
+            categoryPath: '/api/category',
             subCategoryPath: "/api/subcategory",
             questionsPath: "/api/questions",
             opinionsPath: "/api/opinions"
@@ -46,6 +48,7 @@ class Server {
     routersPath() {
         this.app.use(this.routes.authPath, userRouter);
         this.app.use(this.routes.subCategoryPath, subCategpryRouter);
+        this.app.use(this.routes.categoryPath, categoryRouter);
     }
 
     listen(){
