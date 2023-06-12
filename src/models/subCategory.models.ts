@@ -5,7 +5,8 @@ import { ISubCategoryDocument } from "../interfaces/subCategory";
 const SubCategorySchema: Schema = new Schema({
     category: {
         type: mongoose.Types.ObjectId,
-        required: true
+        required: true,
+        ref: "Category"
     },
     code: {
         type: String,

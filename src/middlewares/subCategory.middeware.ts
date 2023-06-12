@@ -22,9 +22,9 @@ class SubCategoryMiddleware extends Middleware{
 
     static middlewareSubCategoriesOfCategory() {
         return [
-            check("category", "Se necesita el parametro 'category' para obtener las sub categorías"),
+            check("category", "Se necesita el parametro 'category' para obtener las sub categorías y tiene que ser un ID de mongo válido").isMongoId(),
+            super.validateBody,
             this.middlewareIsExistCategory,
-            super.validateBody
         ]
     }
 

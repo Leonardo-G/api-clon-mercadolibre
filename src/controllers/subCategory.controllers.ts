@@ -15,7 +15,7 @@ class SubCategoryControllers extends Controller{
     }
 
     async getSubCategoriesOfCategory( req: Request, res: Response ) {
-        const { category } = req.params;
+        const { category } = req.body;
         const { limit, skip } = req.query;
 
         const limitQuery = parseInt(limit as string);
