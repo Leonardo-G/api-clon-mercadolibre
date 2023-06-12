@@ -1,7 +1,7 @@
-import { ICategory } from "./category";
+import { Types } from "mongoose";
 
 export interface ISubCategoryDocument {
-    category: ICategory;
+    category: Types.ObjectId;
     subCategory: ISubCategory;
     imgUrl: string;
 }

@@ -15,7 +15,7 @@ class SubCategoryService {
 
     async getSubCategories(category: string, limit: number = 5, skip: number = 0): Promise<ISubCategoryBody[]> {
         const subCategories = await this._subCategoryModel
-            .find({ "category.code": category })
+            .find({ "category": category })
             .limit( limit )
             .skip( skip )
             .exec();
