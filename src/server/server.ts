@@ -9,6 +9,7 @@ import DbConnection from "../utils/dbConfig";
 import userRouter from '../routers/auth.router';
 import subCategpryRouter from '../routers/subCategory.router';
 import categoryRouter from '../routers/category.router';
+import productsRouter from '../routers/product.router';
 
 class Server {
     readonly app: Express;
@@ -49,6 +50,7 @@ class Server {
         this.app.use(this.routes.authPath, userRouter);
         this.app.use(this.routes.subCategoryPath, subCategpryRouter);
         this.app.use(this.routes.categoryPath, categoryRouter);
+        this.app.use(this.routes.productsPath, productsRouter);
     }
 
     listen(){

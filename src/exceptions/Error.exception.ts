@@ -40,7 +40,21 @@ export class ServerErrorException extends ErrorException {
 
     constructor(res: Response, message: string = "Server error") {
         super(500, message);
-        this.status = 400;
+        this.status = 500;
+        this.message = message;
+
+        this.sendResponse(res);
+    }
+}
+
+export class UnauthorizedException extends ErrorException {
+
+    readonly status: number;
+    readonly message: string;
+
+    constructor(res: Response, message: string = "Unauthorized") {
+        super(401, message);
+        this.status = 401;
         this.message = message;
 
         this.sendResponse(res);
