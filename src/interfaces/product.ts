@@ -22,6 +22,26 @@ export interface IProductDocument extends Document {
     tags: string[];
 }
 
+export interface IProductBody {
+    title: String;
+    imgProduct?: string[];
+    category: string[];
+    subCategory: string[];
+    characteristics: string[];
+    characteristicsDetail: ICharacteristicsDetail[];
+    recommended?: boolean;
+    visited?: number;
+    description: string;
+    stock: number;
+    sold?: number;
+    offer?: boolean;
+    priceDetail: Partial<IPriceDetail>;
+    shipping: Partial<IShipping>;
+    interests: Partial<InterfaceInterest>;
+    condition?: "nuevo" | "usado" | "reacondicionado";
+    tags: string[];
+}
+
 interface InfoCharacteristics {
     title: string;
     type: string;

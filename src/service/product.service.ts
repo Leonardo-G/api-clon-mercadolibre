@@ -1,11 +1,15 @@
+import { IProductBody, IProductDocument } from "../interfaces/product";
 import ProductModels from "../models/Product.models";
 
-class Product {
+class ProductService {
     constructor( private _productModel = ProductModels ) {}   
     
-    async newProduct( ) {
-        const product = new this._productModel();
+    async newProduct( body: IProductBody ): Promise<IProductDocument> {
+        const product = new this._productModel( body );
+        await product.save();
 
         return product;
     }
 }
+
+export default new ProductService();
