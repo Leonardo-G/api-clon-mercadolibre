@@ -79,6 +79,37 @@ class ProductService {
             totalProducts
         };
     }
+
+    async getProductById(id: string) {
+        const product = await this._productModel.findById(id).exec();
+
+        return product;
+    }
+
+    async getProductByOffer(limit: number = 5, skip: number = 0) {
+
+        const products = await this._productModel.find({ offer: true }).limit( limit ).skip( skip );
+    
+        const newProducts = products.map( (p: any) => {
+            const { category, subCategory, characteristics, characteristicsDetail,
+                visited, description, stock, sold, __v, ...productsLigth } = p._doc;
+            
+            return productsLigth
+        }) 
+
+        return newProducts;
+    }
+
+    async getProductsBySubCategory(subcategory: string, limit: number = 5, skip: number = 0) {
+        const products = await this._productModel.find({ subCategory: { $in: subcategory } }).limit(limit).skip(skip);
+        const newProducts = products.map( (p: any) => {
+            const { category, characteristics, characteristicsDetail,
+                visited, description, stock, sold, __v, ...productsLigth } = p._doc;
+            
+            return productsLigth
+        })
+        return newProducts;
+    }
 }
 
 export default new ProductService();

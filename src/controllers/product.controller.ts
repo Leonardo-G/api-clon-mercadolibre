@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import Controller from "./controller";
 import ProductService from "../service/product.service";
-
 class ProductController extends Controller {
     constructor() {
         super()
@@ -30,6 +29,29 @@ class ProductController extends Controller {
             limit: Number(req.query.limit) || 5,
             skip: Number(req.query.skip) || 0
         })
+
+        super.sendOk(res, products);
+    }
+
+    async getOnlyProduct(req: Request, res: Response) {
+        const { id } = req.params;
+        const product = await ProductService.getProductById(id);
+
+        super.sendOk(res, product);
+    }
+
+    async getProductsFieldOfFer(req: Request, res: Response) {
+        const { skip, limit } = req.params;
+
+        const products = await ProductService.getProductByOffer(Number(limit), Number(skip));
+        super.sendOk(res, products);
+    }
+
+    async getProductFieldSubCategory(req: Request, res: Response) {
+        const { subcategory } = req.params;
+        const { limit, skip } = req.query;
+
+        const products = await ProductService.getProductsBySubCategory(subcategory, Number(limit), Number(skip));
 
         super.sendOk(res, products);
     }

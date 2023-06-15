@@ -1,4 +1,4 @@
-import { check } from "express-validator";
+import { check, param } from "express-validator";
 import Middleware from "./middleware";
 import { NextFunction, Request, Response } from "express";
 import Jwt, { IToken } from "../utils/jwt";
@@ -38,6 +38,20 @@ class ProductMiddleware extends Middleware {
                 .isNumeric()
                 .exists().withMessage("Indicar el precio del producto"),
             super.validateBody    
+        ]
+    }
+
+    static middlewareGetOneProduct() {
+        return [
+            param('id').isMongoId().withMessage('Tiene que ser un id de mongo válido'),
+            super.validateBody
+        ]
+    }
+
+    static middlewareGetPoductBySubCategory() {
+        return [
+            param('subcategory').exists(),
+            super.validateBody
         ]
     }
 
