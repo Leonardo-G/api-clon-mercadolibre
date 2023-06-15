@@ -1,6 +1,7 @@
-import { Document, Types } from "mongoose";
+import { Document, HydratedDocument, Types } from "mongoose";
 
 export interface IProductDocument extends Document {
+    _id: Types.ObjectId;
     idUser: Types.ObjectId;
     title: String;
     imgProduct: string[];
@@ -21,6 +22,10 @@ export interface IProductDocument extends Document {
     condition: "nuevo" | "usado" | "reacondicionado";
     tags: string[];
 }
+
+export interface IProductDoc extends IProductDocument {
+    _doc: any
+} ;
 
 export interface IProductBody {
     title: String;
