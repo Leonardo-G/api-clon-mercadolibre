@@ -13,4 +13,4 @@ export interface IOpinion {
 
 export interface IOpinioDocument extends IOpinion, Document {};
 
-export type IOpinionBody = Omit<IOpinion, 'created' | 'like' | 'down'>;
+export type IOpinionBody = Omit<IOpinion, 'created' | 'like' | 'down' | 'idProduct'>;

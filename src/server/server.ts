@@ -10,6 +10,7 @@ import userRouter from '../routers/auth.router';
 import subCategpryRouter from '../routers/subCategory.router';
 import categoryRouter from '../routers/category.router';
 import productsRouter from '../routers/product.router';
+import opinionRouter from '../routers/opinion.router';
 
 class Server {
     readonly app: Express;
@@ -51,6 +52,7 @@ class Server {
         this.app.use(this.routes.subCategoryPath, subCategpryRouter);
         this.app.use(this.routes.categoryPath, categoryRouter);
         this.app.use(this.routes.productsPath, productsRouter);
+        this.app.use(this.routes.opinionsPath, opinionRouter);
     }
 
     listen(){
