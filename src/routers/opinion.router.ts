@@ -4,6 +4,7 @@ import opinionController from "../controllers/opinion.controller";
 
 const router = Router();
 
-router.post('/:idproduct', MiddlewareOpinion.middlewareNewComment(), opinionController.postControllerOpinion);
+router.post('/:idProduct', MiddlewareOpinion.middlewareNewComment(), opinionController.postControllerOpinion);
+router.get('/:idProduct', MiddlewareOpinion.middlewareGetOpinions(), opinionController.getControllerOpinion);
 
 export default router;
