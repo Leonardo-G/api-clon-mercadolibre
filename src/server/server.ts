@@ -11,6 +11,7 @@ import subCategpryRouter from '../routers/subCategory.router';
 import categoryRouter from '../routers/category.router';
 import productsRouter from '../routers/product.router';
 import opinionRouter from '../routers/opinion.router';
+import questionRouter from '../routers/question.router';
 
 class Server {
     readonly app: Express;
@@ -53,6 +54,7 @@ class Server {
         this.app.use(this.routes.categoryPath, categoryRouter);
         this.app.use(this.routes.productsPath, productsRouter);
         this.app.use(this.routes.opinionsPath, opinionRouter);
+        this.app.use(this.routes.questionsPath, questionRouter);
     }
 
     listen(){
