@@ -1,8 +1,8 @@
 import { ISubCategoryBody, ISubCategoryDocument } from "../interfaces/subCategory";
-import subCategoryModels from "../models/SubCategory.models";
+import SubCategoryModels from "../models/subCategory.models";
 
 class SubCategoryService {
-    private _subCategoryModel = subCategoryModels;
+    private _subCategoryModel = SubCategoryModels;
     constructor() {}
 
     async newSubCategory(body: ISubCategoryBody): Promise<ISubCategoryDocument> {
