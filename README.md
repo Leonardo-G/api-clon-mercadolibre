@@ -1,6 +1,6 @@
 # API Mercado Libre - clon 
 
-Repositorio API de Mercado Libre - clon que se desarrollo para usar en el [proyecto del Front.](https://github.com/Leonardo-G/clon-mercadolibre).
+Repositorio API de Mercado Libre - clon que se desarrollo con el paradigma de POO para usar en el [proyecto del Front.](https://github.com/Leonardo-G/clon-mercadolibre).
 Desplegado actualmente en [RAILWAY](https://railway.app). 
 
 ### Aclaración por si no logra consultar la API.
