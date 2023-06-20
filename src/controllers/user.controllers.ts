@@ -4,10 +4,13 @@ import { BadRequestException, ServerErrorException } from '../exceptions/Error.e
 import PasswordBcrypt from '../utils/passwordBcrypt';
 import Jwt from '../utils/jwt';
 import UserService from '../service/user.service';
+import Controller from './controller';
 
-class UserController {
+class UserController extends Controller{
 
-    constructor() {}
+    constructor() {
+        super()
+    }
     
     async postLogin(req: Request, res: Response){
         try {
@@ -26,7 +29,8 @@ class UserController {
 
             const token = Jwt.createJwt(user._id, user.email);
             const { username, email: emailUser, typeUser, imgUrl } = user;
-            res.status(201).json({
+
+            super.created(res, {
                 email: emailUser,
                 username,
                 typeUser, 
@@ -48,11 +52,19 @@ class UserController {
         const user = await UserService.createUser(req.body);
         const token = Jwt.createJwt(user._id, user.email);
 
-        res.status(201).json({
+        super.created(res, {
             ...user,
             token
         })
         
+    }
+
+    async postStoreCategory( req: Request, res: Response ) {
+        const { category } = req.params;
+        const { limit, query } = req.query;
+        const stores = await UserService.getStoreByCategory(category, Number(limit), Number(query));
+
+        super.sendOk(res, stores);
     }
 }
 

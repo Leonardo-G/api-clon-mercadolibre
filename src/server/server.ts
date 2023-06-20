@@ -24,7 +24,7 @@ class Server {
         this.app = express();
         this.dotenv = dotenv.config();
         
-        this.PORT = <string>process.env.PORT || 3000;
+        this.PORT = <string>process.env.PORT || 8000;
         this.routes = {
             authPath: "/api/user",
             productsPath: "/api/products",

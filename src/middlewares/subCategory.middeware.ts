@@ -22,7 +22,7 @@ class SubCategoryMiddleware extends Middleware{
 
     static middlewareSubCategoriesOfCategory() {
         return [
-            check("category", "Se necesita el parametro 'category' para obtener las sub categorías y tiene que ser un ID de mongo válido").isMongoId(),
+            check("category", "Se necesita el campo 'category' para obtener las sub categorías").exists(),
             super.validateBody,
             this.middlewareIsExistCategory,
         ]
@@ -30,10 +30,10 @@ class SubCategoryMiddleware extends Middleware{
 
     static async middlewareIsExistCategory(req: Request, res: Response, next: NextFunction) {
         const { category } = req.body;
-        const categoryObj = await CategoryModels.findOne({ _id: category });
+        const categoryObj = await CategoryModels.findOne({ code: category });
         
         if( !categoryObj) {
-            return new BadRequestException(res, `La categoria con el ID ${ category } no es una categoria válida`);
+            return new BadRequestException(res, `La categoria con el nombre ${ category } no es una categoria válida`);
         }
         
         req.body.category = categoryObj;
