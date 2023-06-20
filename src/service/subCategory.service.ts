@@ -19,7 +19,7 @@ class SubCategoryService {
             .limit( limit )
             .skip( skip )
             .exec();
-        console.log(subCategories)
+            
         return subCategories;
     }
 }

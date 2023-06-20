@@ -20,8 +20,8 @@ class SubCategoryControllers extends Controller{
 
         const limitQuery = parseInt(limit as string);
         const skipQuery = parseInt(skip as string);
-
-        const subCategories = await SubCategoryService.getSubCategories( category, limitQuery, skipQuery );
+        
+        const subCategories = await SubCategoryService.getSubCategories( category._id, limitQuery, skipQuery );
 
         super.sendOk(res, subCategories);
     }

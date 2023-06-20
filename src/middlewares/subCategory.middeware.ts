@@ -30,7 +30,7 @@ class SubCategoryMiddleware extends Middleware{
 
     static async middlewareIsExistCategory(req: Request, res: Response, next: NextFunction) {
         const { category } = req.body;
-        const categoryObj = await CategoryModels.findOne({ code: category });
+        const categoryObj = await CategoryModels.findOne({ code: category }).exec();
         
         if( !categoryObj) {
             return new BadRequestException(res, `La categoria con el nombre ${ category } no es una categoria válida`);

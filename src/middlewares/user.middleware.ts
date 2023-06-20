@@ -30,7 +30,7 @@ class UserMiddleware extends Middleware {
                 'herramientas',
                 'construccion',
                 'deportes-y-fitness',
-                'hogar-y-mubles',
+                'hogar-muebles',
                 'electrodomesticos',
                 'ropa-y-accesorios'
             ]),
