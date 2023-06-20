@@ -86,7 +86,7 @@ class ProductService {
         return product;
     }
 
-    async getProductByOffer(limit: number = 5, skip: number = 0) {
+    async getProductByOffer(limit: number, skip: number) {
 
         const products = await this._productModel.find({ offer: true }).limit( limit ).skip( skip );
     

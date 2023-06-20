@@ -41,7 +41,7 @@ class ProductController extends Controller {
     }
 
     async getProductsFieldOfFer(req: Request, res: Response) {
-        const { skip, limit } = req.params;
+        const { skip = 0, limit = 5 } = req.params;
 
         const products = await ProductService.getProductByOffer(Number(limit), Number(skip));
         super.sendOk(res, products);

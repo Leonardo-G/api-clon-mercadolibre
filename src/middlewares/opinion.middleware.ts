@@ -18,7 +18,7 @@ class MiddlewareOpinion extends Middleware {
 
     static middlewareGetOpinions() {
         return [
-            param( 'idProduct ').exists().isMongoId().withMessage("el parametro 'idproduct' tiene que ser un MONGO ID válido"),
+            param( 'idProduct').exists().isMongoId().withMessage("el parametro 'idProduct' tiene que ser un MONGO ID válido"),
             super.validateBody
         ]
     }
