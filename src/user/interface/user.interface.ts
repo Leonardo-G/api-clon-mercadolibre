@@ -6,4 +6,5 @@ export interface IUserReturn {
   email: string;
   typeUser: string;
   imgUrl: string;
+  token: string;
 }

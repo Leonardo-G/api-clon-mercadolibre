@@ -1,3 +1,4 @@
+import { PickType } from '@nestjs/mapped-types';
 import {
   IsEmail,
   IsIn,
@@ -34,3 +35,8 @@ export class UserRegisterDTO {
   @IsString()
   imgUrl: string;
 }
+
+export class UserLoginDTO extends PickType(UserRegisterDTO, [
+  'email',
+  'password',
+] as const) {}
