@@ -18,7 +18,7 @@ import { ValidateCategoryPipe } from '../pipe/validate-category.pipe';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Post()
+  @Post('register')
   postRegister(@Body() userRegisterDTO: UserRegisterDTO) {
     try {
       return this.userService.newUser(userRegisterDTO);
@@ -27,7 +27,7 @@ export class UserController {
     }
   }
 
-  @Post()
+  @Post('login')
   postLogin(@Body() userLoginDTO: UserLoginDTO) {
     try {
       return this.userService.login(userLoginDTO);
@@ -39,8 +39,8 @@ export class UserController {
   @Get('store/:category')
   getStores(
     @Param('category', ValidateCategoryPipe) category: string,
-    @Query('limit', ParseIntPipe, new DefaultValuePipe(5)) limit: number,
-    @Query('skip', ParseIntPipe, new DefaultValuePipe(0)) skip: number,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+    @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
   ) {
     try {
       return this.userService.getAllStores(category, limit, skip);

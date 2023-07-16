@@ -6,13 +6,14 @@ import {
   IsOptional,
   IsString,
   Min,
+  MinLength,
 } from 'class-validator';
 
 export class UserRegisterDTO {
   @IsString()
   @IsNotEmpty()
-  @Min(6, {
-    message: 'El campo username es requerido y como mínimo 6 caracteres',
+  @MinLength(6, {
+    message: 'the fiel "username" requires a minimum of 6 characters',
   })
   username: string;
 
@@ -22,7 +23,7 @@ export class UserRegisterDTO {
 
   @IsString()
   @IsNotEmpty()
-  @Min(6, {
+  @MinLength(6, {
     message: 'La contraseña tiene que tener como mínimo 6 caracteres',
   })
   password: string;

@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -13,6 +14,11 @@ import { CategoryModule } from './category/category.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_URL_MONGODB_CONNECTION),
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET_JWT,
+      signOptions: { expiresIn: '1d' },
+    }),
     UserModule,
     CategoryModule,
   ],

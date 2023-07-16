@@ -65,7 +65,7 @@ export class UserService {
   async getAllStores(category: string, limit: number, skip: number) {
     const stores = await this.userModel
       .find({
-        categories: { $in: category },
+        categories: { $in: [category] },
         typeUser: 'official-store',
       })
       .limit(limit)
