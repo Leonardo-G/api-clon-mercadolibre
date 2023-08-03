@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { Document, HydratedDocument, Types } from 'mongoose';
 import { Category } from 'src/category/model/category.model';
 
 export type SubCategoryDocument = HydratedDocument<SubCategory>;
@@ -8,7 +8,7 @@ export type SubCategoryDocument = HydratedDocument<SubCategory>;
   timestamps: true,
   strict: true,
 })
-export class SubCategory {
+export class SubCategory extends Document {
   @Prop({
     type: Types.ObjectId,
     required: true,
