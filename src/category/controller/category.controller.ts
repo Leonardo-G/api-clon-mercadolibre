@@ -4,12 +4,13 @@ import {
   Get,
   HttpException,
   Post,
-  Req,
+  Param,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CategoryService } from '../service/category.service';
 import { NewCategoryDTO } from '../dto/category.dto';
-import { Request } from 'express';
 import { Types } from 'mongoose';
+import { ValidateCategoryPipe } from 'src/user/pipe/validate-category.pipe';
 
 @Controller('categories')
 export class CategoryController {
@@ -24,12 +25,13 @@ export class CategoryController {
     }
   }
 
-  @Get(':categoryId/subcategories')
+  @Get(':codeCategory/subcategories')
   getSubcategoriesOfCategories(
-    @Req() { categoryId }: Request & { categoryId: Types.ObjectId },
+    @Param('codeCategory', new ValidateCategoryPipe())
+    categoryId: string,
   ) {
     try {
-      return this.categoryService.findSubCategories(categoryId);
+      return this.categoryService.findSubCategoriesOfCategory(categoryId);
     } catch (error) {
       throw new HttpException(error.msg, error.status);
     }

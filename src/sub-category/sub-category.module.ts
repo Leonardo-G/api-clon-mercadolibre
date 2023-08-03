@@ -9,7 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SubCategoryController } from './controller/sub-category.controller';
 import { SubCategory, SubCategorySchema } from './model/SubCategory.model';
 import { SubCategoryService } from './services/sub-category.service';
-import { IsExistCategoryMiddleware } from '../common/middlewawre/is-exist-category.middleware';
+import { IsExistCategoryMiddleware } from '../category/middlewawre/is-exist-category.middleware';
 import { CategoryModule } from 'src/category/category.module';
 
 @Module({

@@ -35,8 +35,14 @@ export class CategoryService {
     return category;
   }
 
-  async findSubCategories(category: Types.ObjectId) {
-    const subCategories = await this.subCategoryModel.find({ category }).exec();
+  async findSubCategoriesOfCategory(category: string) {
+    const categoryDocument = await this.categoryModel
+      .findOne({ code: category })
+      .exec();
+
+    const subCategories = await this.subCategoryModel
+      .find({ category: categoryDocument._id })
+      .exec();
 
     return subCategories;
   }

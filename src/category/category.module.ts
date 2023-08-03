@@ -8,7 +8,7 @@ import { CategoryController } from './controller/category.controller';
 import { CategoryService } from './service/category.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from './model/category.model';
-import { IsExistCategoryMiddleware } from 'src/common/middlewawre/is-exist-category.middleware';
+import { IsExistCategoryMiddleware } from 'src/category/middlewawre/is-exist-category.middleware';
 import {
   SubCategory,
   SubCategorySchema,
@@ -28,11 +28,4 @@ import {
   providers: [CategoryService],
   exports: [CategoryService],
 })
-export class CategoryModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(IsExistCategoryMiddleware).forRoutes({
-      path: 'categories/:categoryId/subcategories',
-      method: RequestMethod.GET,
-    });
-  }
-}
+export class CategoryModule {}
