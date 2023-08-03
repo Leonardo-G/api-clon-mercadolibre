@@ -4,7 +4,6 @@ import { UserService } from './service/user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/user/model/user.model';
 import { BcryptPassword } from './utils/bcryptPassword';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [

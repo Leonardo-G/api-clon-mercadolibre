@@ -2,7 +2,7 @@ import { Body, Controller, HttpException, Post } from '@nestjs/common';
 import { CategoryService } from '../service/category.service';
 import { NewCategoryDTO } from '../dto/category.dto';
 
-@Controller('category')
+@Controller('categories')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
