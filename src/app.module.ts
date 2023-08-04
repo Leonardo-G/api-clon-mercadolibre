@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
 import { JwtModule } from '@nestjs/jwt';
 import { SubCategoryModule } from './sub-category/sub-category.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SubCategoryModule } from './sub-category/sub-category.module';
     UserModule,
     CategoryModule,
     SubCategoryModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
