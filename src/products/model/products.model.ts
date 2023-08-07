@@ -1,6 +1,9 @@
-import { Prop, Schema } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types, HydratedDocument } from 'mongoose';
+
 import { User } from 'src/user/model/user.model';
+
+export type ProductDocument = HydratedDocument<Products>;
 
 @Schema({
   strict: true,
@@ -151,7 +154,7 @@ export class Products extends Document {
   })
   interests: {
     accept: boolean;
-    until: number;
+    until: 0 | 3 | 6 | 12;
   };
 
   @Prop({
@@ -167,3 +170,5 @@ export class Products extends Document {
   })
   tags: string[];
 }
+
+export const ProductsSchema = SchemaFactory.createForClass(Products);
