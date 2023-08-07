@@ -5,6 +5,7 @@ import {
   Get,
   HttpException,
   Param,
+  ParseIntPipe,
   Post,
   Query,
   Req,
@@ -39,6 +40,7 @@ export class ProductsController {
   @Get('/:id')
   getOnlyProduct(@Param('id', IsValidMongoIdPipe) id: Types.ObjectId) {
     try {
+      return this.productsService.findProductById(id);
     } catch (error) {
       throw new HttpException(error.msg, error.status);
     }
@@ -47,7 +49,28 @@ export class ProductsController {
   @Get()
   getProducts(@Query() searchQuerys: SearchQuerys) {
     try {
-      return this.productsService.findProducts(searchQuerys);
+      return this.productsService.findProductsByQuerys(searchQuerys);
+    } catch (error) {
+      throw new HttpException(error.msg, error.status);
+    }
+  }
+
+  @Get('by-offer')
+  getByOffers(
+    @Query('limit', ParseIntPipe, new DefaultValuePipe(5)) limit: number,
+    @Query('skip', ParseIntPipe, new DefaultValuePipe(0)) skip: number,
+  ) {
+    try {
+      return this.productsService.getProductsByOffer(limit, skip);
+    } catch (error) {
+      throw new HttpException(error.msg, error.status);
+    }
+  }
+
+  @Get('by-:subcategory')
+  getBySubCategoties(@Param('subcategory') subcategory: string) {
+    try {
+      return this.productsService.getProductsBySubCategory(subcategory);
     } catch (error) {
       throw new HttpException(error.msg, error.status);
     }

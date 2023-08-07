@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Products } from '../model/products.model';
 import { Model, Types } from 'mongoose';
@@ -28,7 +28,7 @@ export class ProductsService {
     return product;
   }
 
-  async findProducts(searchQuerys: SearchQuerys) {
+  async findProductsByQuerys(searchQuerys: SearchQuerys) {
     const query = this.productsModel.find();
 
     if (searchQuerys.search)
@@ -119,6 +119,59 @@ export class ProductsService {
     return {
       products: newProducts,
       totalProducts: total,
+    };
+  }
+
+  async getProductsByOffer(limit: number, skip: number) {
+    const products = await this.productsModel
+      .find({ offer: true })
+      .skip(skip)
+      .limit(limit);
+
+    const newProducts = products.map((p) => {
+      const {
+        category,
+        subCategory,
+        characteristics,
+        characteristicsDetail,
+        description,
+        stock,
+        sold,
+        __v,
+        ...productsLigth
+      } = p;
+
+      return productsLigth;
+    });
+
+    return {
+      products: newProducts,
+    };
+  }
+
+  async getProductsBySubCategory(subCategory: string) {
+    const products = await this.productsModel.find({
+      subCategory: { $in: subCategory },
+    });
+
+    const newProducts = products.map((p) => {
+      const {
+        category,
+        subCategory,
+        characteristics,
+        characteristicsDetail,
+        description,
+        stock,
+        sold,
+        __v,
+        ...productsLigth
+      } = p;
+
+      return productsLigth;
+    });
+
+    return {
+      products: newProducts,
     };
   }
 }
