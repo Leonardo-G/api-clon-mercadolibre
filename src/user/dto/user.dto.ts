@@ -30,11 +30,11 @@ export class UserRegisterDTO {
 
   @IsOptional()
   @IsIn(['user', 'official-store'])
-  typeUser: 'user' | 'official-store';
+  typeUser?: 'user' | 'official-store';
 
   @IsOptional()
   @IsString()
-  imgUrl: string;
+  imgUrl?: string;
 }
 
 export class UserLoginDTO extends PickType(UserRegisterDTO, [
