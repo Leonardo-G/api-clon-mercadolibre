@@ -9,6 +9,7 @@ import { CategoryModule } from './category/category.module';
 import { JwtModule } from '@nestjs/jwt';
 import { SubCategoryModule } from './sub-category/sub-category.module';
 import { ProductsModule } from './products/products.module';
+import { OpinionModule } from './opinion/opinion.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ProductsModule } from './products/products.module';
     CategoryModule,
     SubCategoryModule,
     ProductsModule,
+    OpinionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
