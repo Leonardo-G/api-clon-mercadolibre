@@ -43,7 +43,7 @@ export class Opinion extends Document {
     enum: [1, 2, 3, 4, 5],
     required: true,
   })
-  rate: true;
+  rate: number;
 }
 
 export const OpinionSchema = SchemaFactory.createForClass(Opinion);
