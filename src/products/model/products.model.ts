@@ -30,6 +30,14 @@ export class Products extends Document {
 
   @Prop({
     type: [String],
+    default: [
+      'https://www.sinrumbofijo.com/wp-content/uploads/2016/05/default-placeholder.png',
+    ],
+  })
+  imgProduct: string[];
+
+  @Prop({
+    type: [String],
     required: true,
   })
   category: string[];

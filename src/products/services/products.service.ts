@@ -4,6 +4,7 @@ import { Products } from '../model/products.model';
 import { Model, Types } from 'mongoose';
 import { CreateProductsDTO } from '../dto/products.dto';
 import { SearchQuerys } from '../dto/queryProducts.dto';
+import { ProductShort } from '../transformers/products.transformers';
 
 @Injectable()
 export class ProductsService {
@@ -96,24 +97,14 @@ export class ProductsService {
       query
         .skip(searchQuerys.skip || 0)
         .limit(searchQuerys.limit || 5)
-        .exec(),
-      query.countDocuments().exec(),
+        .lean(),
+      query.clone().countDocuments().exec(), //use clone() for a new instance of the query
     ]);
 
     const newProducts = products.map((p) => {
-      const {
-        category,
-        subCategory,
-        characteristics,
-        characteristicsDetail,
-        description,
-        stock,
-        sold,
-        __v,
-        ...productsLigth
-      } = p;
+      const productShort = new ProductShort(p);
 
-      return productsLigth;
+      return productShort;
     });
 
     return {
@@ -129,19 +120,9 @@ export class ProductsService {
       .limit(limit);
 
     const newProducts = products.map((p) => {
-      const {
-        category,
-        subCategory,
-        characteristics,
-        characteristicsDetail,
-        description,
-        stock,
-        sold,
-        __v,
-        ...productsLigth
-      } = p;
+      const productShort = new ProductShort(p);
 
-      return productsLigth;
+      return productShort;
     });
 
     return {
@@ -155,19 +136,9 @@ export class ProductsService {
     });
 
     const newProducts = products.map((p) => {
-      const {
-        category,
-        subCategory,
-        characteristics,
-        characteristicsDetail,
-        description,
-        stock,
-        sold,
-        __v,
-        ...productsLigth
-      } = p;
+      const productShort = new ProductShort(p);
 
-      return productsLigth;
+      return productShort;
     });
 
     return {

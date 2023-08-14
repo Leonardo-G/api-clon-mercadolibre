@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Opinion, OpinionSchema } from './model/opinion.model';
 import { OpinionController } from './controller/opinion.controller';
 import { OpinionService } from './service/opinion.service';
+import { User, UserSchema } from 'src/user/model/user.model';
 
 @Module({
   imports: [
@@ -10,6 +11,10 @@ import { OpinionService } from './service/opinion.service';
       {
         name: Opinion.name,
         schema: OpinionSchema,
+      },
+      {
+        name: User.name,
+        schema: UserSchema,
       },
     ]),
   ],
