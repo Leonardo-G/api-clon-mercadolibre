@@ -12,7 +12,7 @@ export class IsValidMongoIdPipe implements PipeTransform {
     const isMongoId = Types.ObjectId.isValid(value);
 
     if (!isMongoId)
-      throw new BadRequestException(`The ID '${value}' does not exists`);
+      throw new BadRequestException(`The ID '${value}' is not valid`);
 
     return value;
   }

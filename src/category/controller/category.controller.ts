@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { CategoryService } from '../service/category.service';
 import { NewCategoryDTO } from '../dto/category.dto';
-import { Types } from 'mongoose';
 import { ValidateCategoryPipe } from 'src/user/pipe/validate-category.pipe';
 
 @Controller('categories')

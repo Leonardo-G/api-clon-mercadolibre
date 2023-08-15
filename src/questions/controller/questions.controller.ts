@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
+  Get,
   HttpException,
   Param,
   ParseIntPipe,
@@ -41,13 +42,14 @@ export class QuestionsController {
     }
   }
 
-  @Put(':idProduct/questions')
+  @Get(':idProduct/questions')
   getQuestions(
     @Param('idProduct', IsValidMongoIdPipe) idProduct: Types.ObjectId,
-    @Query('limit', ParseIntPipe, new DefaultValuePipe(5)) skip: number,
-    @Query('skip', ParseIntPipe, new DefaultValuePipe(0)) limit: number,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+    @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
   ) {
     try {
+      console.log(limit);
       return this.questionsService.findQuestions(idProduct, skip, limit);
     } catch (error) {
       throw new HttpException(error.msg, error.status);

@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Products } from '../model/products.model';
 import { Model, Types } from 'mongoose';
@@ -36,7 +36,7 @@ export class ProductsService {
       query.where({
         $text: {
           $search: searchQuerys.search,
-          $casSensitive: false,
+          $caseSensitive: false,
         },
       });
 
@@ -70,15 +70,23 @@ export class ProductsService {
     }
 
     if (searchQuerys.tags) {
-      query.in('paths', [searchQuerys.tags]);
+      query.in('tags', [searchQuerys.tags]);
     }
 
-    if (searchQuerys.price_lte) {
-      query.lte(searchQuerys.price_lte);
+    if (searchQuerys.price_lte && !searchQuerys.offer) {
+      query.where('priceDetail.price').lte(searchQuerys.price_lte);
     }
 
-    if (searchQuerys.price_gte) {
-      query.gte(searchQuerys.price_gte);
+    if (searchQuerys.price_gte && !searchQuerys.offer) {
+      query.where('priceDetail.price').gte(searchQuerys.price_gte);
+    }
+
+    if (searchQuerys.price_lte && searchQuerys.offer) {
+      query.where('priceDetail.offerPrice').lte(searchQuerys.price_lte);
+    }
+
+    if (searchQuerys.price_gte && searchQuerys.offer) {
+      query.where('priceDetail.offerPrice').gte(searchQuerys.price_gte);
     }
 
     if (searchQuerys.sort === 'price_asc') {
@@ -110,23 +118,6 @@ export class ProductsService {
     return {
       products: newProducts,
       totalProducts: total,
-    };
-  }
-
-  async getProductsByOffer(limit: number, skip: number) {
-    const products = await this.productsModel
-      .find({ offer: true })
-      .skip(skip)
-      .limit(limit);
-
-    const newProducts = products.map((p) => {
-      const productShort = new ProductShort(p);
-
-      return productShort;
-    });
-
-    return {
-      products: newProducts,
     };
   }
 

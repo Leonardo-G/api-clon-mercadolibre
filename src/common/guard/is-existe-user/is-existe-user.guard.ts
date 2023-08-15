@@ -19,10 +19,11 @@ export class IsExisteUserGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = request['authorization'];
+    const token = request.headers.authorization;
+
+    if (!token) throw new UnauthorizedException('Token is required');
 
     const isValidToken = this.jwtService.verify<IJwtUser>(token);
-
     if (!isValidToken) throw new UnauthorizedException('Token is not valid');
 
     const user = await this.userModel.findById(isValidToken._id);

@@ -55,19 +55,7 @@ export class ProductsController {
     }
   }
 
-  @Get('by-offer')
-  getByOffers(
-    @Query('limit', ParseIntPipe, new DefaultValuePipe(5)) limit: number,
-    @Query('skip', ParseIntPipe, new DefaultValuePipe(0)) skip: number,
-  ) {
-    try {
-      return this.productsService.getProductsByOffer(limit, skip);
-    } catch (error) {
-      throw new HttpException(error.msg, error.status);
-    }
-  }
-
-  @Get('by-:subcategory')
+  @Get(':subcategory/subcategory')
   getBySubCategoties(@Param('subcategory') subcategory: string) {
     try {
       return this.productsService.getProductsBySubCategory(subcategory);

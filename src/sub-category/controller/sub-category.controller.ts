@@ -4,7 +4,7 @@ import { CreateSubCategoryDTO } from '../dto/subCategory.dto';
 import { Request } from 'express';
 import { Types } from 'mongoose';
 
-@Controller('sub-category')
+@Controller('subcategory')
 export class SubCategoryController {
   constructor(private subCategoryService: SubCategoryService) {}
 

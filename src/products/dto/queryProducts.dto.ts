@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsIn,
@@ -19,14 +20,17 @@ export class SearchQuerys {
   @IsString()
   subcategory?: string;
 
+  @Transform(({ value }) => (value === 'true' ? true : false))
   @IsOptional()
   @IsBoolean()
   offer?: boolean;
 
+  @Transform(({ value }) => parseInt(value))
   @IsOptional()
   @IsIn([0, 1, 2])
   shipping?: 0 | 1 | 2;
 
+  @Transform(({ value }) => (value === 'true' ? true : false))
   @IsOptional()
   @IsBoolean()
   interests?: boolean;
@@ -37,12 +41,15 @@ export class SearchQuerys {
 
   @IsOptional()
   @IsString()
+  @IsIn(['nuevo', 'reacondicionado', 'usado'])
   condition?: 'nuevo' | 'reacondicionado' | 'usado';
 
+  @Transform(({ value }) => parseFloat(value))
   @IsOptional()
   @IsNumber()
   price_gte?: number;
 
+  @Transform(({ value }) => parseFloat(value))
   @IsOptional()
   @IsNumber()
   price_lte?: number;
@@ -55,10 +62,12 @@ export class SearchQuerys {
   @IsString()
   sort?: 'price_asc' | 'relevant';
 
+  @Transform(({ value }) => parseInt(value))
   @IsOptional()
   @IsNumber()
   limit?: number;
 
+  @Transform(({ value }) => parseInt(value))
   @IsOptional()
   @IsNumber()
   skip?: number;
