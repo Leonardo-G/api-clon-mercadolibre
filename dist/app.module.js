@@ -9,36 +9,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
-const mongoose_1 = require("@nestjs/mongoose");
+const jwt_1 = require("@nestjs/jwt");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const user_module_1 = require("./user/user.module");
 const category_module_1 = require("./category/category.module");
-const jwt_1 = require("@nestjs/jwt");
 const sub_category_module_1 = require("./sub-category/sub-category.module");
 const products_module_1 = require("./products/products.module");
 const opinion_module_1 = require("./opinion/opinion.module");
 const questions_module_1 = require("./questions/questions.module");
+const environment_config_1 = require("./config/environment.config");
+const database_module_1 = require("./database/database.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({
+                load: [environment_config_1.default],
                 isGlobal: true,
             }),
-            mongoose_1.MongooseModule.forRoot(process.env.DB_URL_MONGODB_CONNECTION),
             jwt_1.JwtModule.register({
                 global: true,
                 secret: process.env.SECRET_JWT,
                 signOptions: { expiresIn: '1d' },
             }),
+            database_module_1.DatabaseModule,
             user_module_1.UserModule,
             category_module_1.CategoryModule,
             sub_category_module_1.SubCategoryModule,
             products_module_1.ProductsModule,
             opinion_module_1.OpinionModule,
             questions_module_1.QuestionsModule,
+            database_module_1.DatabaseModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
